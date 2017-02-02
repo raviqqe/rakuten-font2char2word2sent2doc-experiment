@@ -41,7 +41,7 @@ file CHAR_FILE => :dataset do |t|
   sh %W(
       cat #{DATASET_DIR}/chars.txt |
       grep -v -e '^#{null_char}$' -e '^#{unknown_char}$' -e '^[[:blank:]]*$' |
-      sort -u >> #{t.name}).join(' ')
+      LC_ALL=C sort -u >> #{t.name}).join(' ')
 end
 
 
