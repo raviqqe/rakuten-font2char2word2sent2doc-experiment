@@ -71,7 +71,6 @@ directory OUTPUT_DIR => [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do |t|
          --save_font_array_file fonts.json
          --train_file '#{TRAIN_FILE}'
          --eval_file '#{TEST_FILE}'
-         --train_steps 1000000000
          --eval_steps 100
          --batch_size 16)
 end
