@@ -66,13 +66,25 @@ directory OUTPUT_DIR => [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do |t|
          --word_file #{t.sources[1]}
          --char_file #{t.sources[2]}
          --font_file #{t.sources[3]}
+
          --font_size 32
-         --save_word_array_file words.csv
-         --save_font_array_file fonts.json
+         --num_cnn_layers 4
+
+         --word_embedding_size 150
+         --sentence_embedding_size 100
+         --document_embedding_size 50
+         --context_vector_size 200
+         --hidden_layer_sizes 100
+
+         --batch_size 16
+         --dropout_keep_prob 1
+         --regularization_scale 0
+
+         --save_word_array_file var/words.csv
+         --save_font_array_file var/fonts.json
          --train_file '#{TRAIN_FILE}'
          --eval_file '#{TEST_FILE}'
-         --eval_steps 100
-         --batch_size 16)
+         --eval_steps 100)
 end
 
 task default: OUTPUT_DIR
