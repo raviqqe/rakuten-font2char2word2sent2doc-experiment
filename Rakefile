@@ -47,7 +47,7 @@ file FONT_FILE => VAR_DIR do |t|
   sh "cp #{VAR_DIR}/ipag00303/ipag.ttf #{t.name}"
 end
 
-directory OUTPUT_DIR => [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do |t|
+task train_and_evaluate: [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do |t|
   sh "rm -rf #{VENV_DIR}; python3 -m venv #{VENV_DIR}"
 
   def vsh(*args)
@@ -59,35 +59,44 @@ directory OUTPUT_DIR => [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do |t|
          tensorflow-qnd
          tensorflow-qndex
          tensorflow-font2char2word2sent2doc)
-  vsh %W(python train.py
-         --output_dir #{OUTPUT_DIR}
-         --num_classes 6
-         --num_labels 7
-         --word_file #{t.sources[1]}
-         --char_file #{t.sources[2]}
-         --font_file #{t.sources[3]}
 
-         --font_size 32
-         --num_cnn_layers 4
+  options = %W(
+    --output_dir #{OUTPUT_DIR}
+    --num_classes 6
+    --num_labels 7
+    --word_file #{t.sources[1]}
+    --char_file #{t.sources[2]}
+    --font_file #{t.sources[3]}
 
-         --word_embedding_size 150
-         --sentence_embedding_size 100
-         --document_embedding_size 50
-         --context_vector_size 200
-         --hidden_layer_sizes 100
+    --font_size 32
+    --num_cnn_layers 4
 
-         --batch_size 16
-         --dropout_keep_prob 1
-         --regularization_scale 0
+    --word_embedding_size 150
+    --sentence_embedding_size 100
+    --document_embedding_size 50
+    --context_vector_size 200
+    --hidden_layer_sizes 100
 
-         --save_word_array_file var/words.csv
-         --save_font_array_file var/fonts.json
-         --train_file '#{TRAIN_FILE}'
-         --eval_file '#{TEST_FILE}'
-         --eval_steps 100)
+    --batch_size 16
+    --dropout_keep_prob 1
+    --regularization_scale 0
+  )
+
+  vsh ['python', 'train.py',
+       '--save_word_array_file', 'var/words.csv',
+       '--save_font_array_file', 'var/fonts.json',
+       '--train_file', "'#{TRAIN_FILE}'",
+       '--eval_file', "'#{DEVELOP_FILE}'",
+       '--eval_steps', '100',
+       *options]
+
+  vsh ['python', 'evaluate.py',
+       '--infer_file', "'#{TEST_FILE}'",
+       *options,
+       '>', File.join(VAR_DIR, 'evaluation_result.json')]
 end
 
-task default: OUTPUT_DIR
+task default: :train_and_evaluate
 
 task :clean
 
