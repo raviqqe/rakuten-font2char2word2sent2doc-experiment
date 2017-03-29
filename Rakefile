@@ -69,22 +69,22 @@ options = %W(
   --regularization_scale 0
 )
 
-def prepare_venv
-  sh "python3 -m venv #{VENV_DIR}" unless Dir.exist? VENV_DIR
-end
-
 def vsh(*args)
   sh ". #{VENV_DIR}/bin/activate && #{args.join ' '}"
 end
 
-task train: [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do
-  prepare_venv
+def prepare_venv
+  sh "python3 -m venv #{VENV_DIR}" unless Dir.exist? VENV_DIR
 
   vsh %w(pip3 install --upgrade --no-cache-dir
          tensorflow-gpu==0.12.1
          tensorflow-qnd
          tensorflow-qndex
          tensorflow-font2char2word2sent2doc)
+end
+
+task train: [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do
+  prepare_venv
 
   vsh ['python', 'train.py',
        '--save_word_array_file', 'var/words.csv',
