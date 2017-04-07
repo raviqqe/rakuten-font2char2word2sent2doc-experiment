@@ -61,7 +61,7 @@ options = %W(
   --word_embedding_size 150
   --sentence_embedding_size 100
   --document_embedding_size 50
-  --context_vector_size 200
+  --context_vector_size 100
   --hidden_layer_sizes 100
 
   --batch_size 16
