@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import json
 import logging
 
 import qnd
@@ -14,7 +15,7 @@ evaluate = qnd.def_evaluate()
 
 def main():
     logging.getLogger().setLevel(logging.INFO)
-    print(evaluate(model, read_file))
+    print(json.dumps(evaluate(model, read_file)))
 
 
 if __name__ == '__main__':
