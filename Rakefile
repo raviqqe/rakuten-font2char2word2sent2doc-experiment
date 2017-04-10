@@ -47,7 +47,7 @@ file FONT_FILE => VAR_DIR do |t|
   sh "cp #{VAR_DIR}/ipag00303/ipag.ttf #{t.name}"
 end
 
-options = %W(
+options = %W[
   --output_dir #{OUTPUT_DIR}
   --num_classes 6
   --num_labels 7
@@ -67,7 +67,7 @@ options = %W(
   --batch_size 16
   --dropout_keep_prob 1
   --regularization_scale 0
-)
+]
 
 def vsh(*args)
   sh ". #{VENV_DIR}/bin/activate && #{args.join ' '}"
@@ -76,11 +76,11 @@ end
 def prepare_venv
   sh "python3 -m venv #{VENV_DIR}" unless Dir.exist? VENV_DIR
 
-  vsh %w(pip3 install --upgrade --no-cache-dir
+  vsh %w[pip3 install --upgrade --no-cache-dir
          tensorflow-gpu==0.12.1
          tensorflow-qnd
          tensorflow-qndex
-         tensorflow-font2char2word2sent2doc)
+         tensorflow-font2char2word2sent2doc]
 end
 
 task train: [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do
@@ -104,7 +104,7 @@ task :evaluate do
        '>', File.join(VAR_DIR, 'evaluation_result.json')]
 end
 
-task default: %i(train evaluate)
+task default: %i[train evaluate]
 
 task :clean
 
