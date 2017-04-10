@@ -57,6 +57,7 @@ options = %W[
 
   --font_size 32
   --num_cnn_layers 4
+  --num_cnn_channels 32
 
   --word_embedding_size 150
   --sentence_embedding_size 100
