@@ -65,7 +65,7 @@ options = %W[
   --hidden_layer_sizes 100
 
   --batch_size 16
-  --dropout_keep_prob 1
+  --dropout_keep_prob 0.5
   --regularization_scale 0
 ]
 
