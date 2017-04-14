@@ -10,6 +10,7 @@ TEST_FILE = "#{DATASET_DIR}/test/*.json".freeze
 WORD_FILE = "#{VAR_DIR}/words.txt".freeze
 CHAR_FILE = "#{VAR_DIR}/chars.txt".freeze
 FONT_FILE = "#{VAR_DIR}/font.ttf".freeze
+JSON_FONT_FILE = File.join VAR_DIR, 'fonts.json'
 
 OUTPUT_DIR = "#{VAR_DIR}/output".freeze
 
@@ -78,6 +79,7 @@ def prepare_venv
   sh "python3 -m venv #{VENV_DIR}" unless Dir.exist? VENV_DIR
 
   vsh %w[pip3 install --upgrade --no-cache-dir
+         matplotlib
          tensorflow-gpu==0.12.1
          tensorflow-qnd
          tensorflow-qndex
@@ -89,7 +91,7 @@ task train: [:dataset, WORD_FILE, CHAR_FILE, FONT_FILE] do
 
   vsh ['python', 'train.py',
        '--save_word_array_file', 'var/words.csv',
-       '--save_font_array_file', 'var/fonts.json',
+       '--save_font_array_file', JSON_FONT_FILE,
        '--train_file', "'#{TRAIN_FILE}'",
        '--eval_file', "'#{DEVELOP_FILE}'",
        '--eval_steps', '100',
@@ -103,6 +105,19 @@ task :evaluate do
        '--infer_file', "'#{TEST_FILE}'",
        *options,
        '>', File.join(VAR_DIR, 'evaluation_result.json')]
+end
+
+task visualize: [CHAR_FILE, JSON_FONT_FILE] do |t|
+  prepare_venv
+
+  attention_file = File.join VAR_DIR, 'font_attentions.json'
+
+  vsh ['python', 'dump_font_attentions.py',
+       '--infer_file', "'#{TEST_FILE}'",
+       *options,
+       '>', attention_file]
+  vsh ['python', 'visualize_font_attentions.py',
+       t.sources[0], t.sources[1], attention_file, 'var/font_attentions']
 end
 
 task default: %i[train evaluate]
