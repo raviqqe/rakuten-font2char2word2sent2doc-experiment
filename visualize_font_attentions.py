@@ -26,6 +26,8 @@ def main():
             [char.strip() for char in gargparse.ARGS.char_file.readlines()],
             np.stack([255 - fonts] * 3, axis=-1),
             np.array(json.load(gargparse.ARGS.attention_file))):
+        assert np.isclose(attention.sum(), 1)
+
         new_pixels = np.minimum(
             font[:, :, 0],
             255 - (255 * np.sqrt(attention)).astype(np.uint8))
