@@ -36,6 +36,15 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda CUDA_VISIBLE_DEVICES=$gpu_id ra
 ```
 
 
+## Using TensorBoard
+
+At a top-level directory, run the following command.
+
+```
+tensorboard --logdir var/output --port 8888
+```
+
+
 ## Visualization of font attentions
 
 After training, run the following command.
