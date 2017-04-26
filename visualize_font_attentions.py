@@ -28,11 +28,9 @@ def main():
             np.array(json.load(gargparse.ARGS.attention_file))):
         assert np.isclose(attention.sum(), 1)
 
-        new_pixels = np.minimum(
+        font[:, :, 1] = font[:, :, 2] = np.minimum(
             font[:, :, 0],
             255 - (255 * np.sqrt(attention)).astype(np.uint8))
-        font[:, :, 1] = new_pixels
-        font[:, :, 2] = new_pixels
         image.imsave(os.path.join(gargparse.ARGS.dest_dir,
                                   hex(ord(char)) + '.img'),
                      font)
