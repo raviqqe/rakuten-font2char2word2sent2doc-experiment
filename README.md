@@ -29,7 +29,7 @@ To evaluate a font2char2word2sent2doc model with a evaluation dataset,
 run the following command.
 Note that TensorFlow v1.0.1 has
 [an issue](https://github.com/tensorflow/tensorflow/issues/7407)
-of `Evaluable.evaluate()` which does not catch `OutOfRangeError`.
+that `Estimator.evaluate()` does not catch `OutOfRangeError`.
 You may need to specify an exact number of batches used for evaluation
 via `--eval_step` flag in [Rakefile](Rakefile).
 
