@@ -47,6 +47,16 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda CUDA_VISIBLE_DEVICES=$gpu_id ra
 You should see image files in `var/font_attentions`.
 
 
+## Cleaning up
+
+The command below cleans up everything like saved models, processed datasets
+and etc.
+
+```
+rake clobber
+```
+
+
 ## License
 
 [The Unlicense](https://unlicense.org)
