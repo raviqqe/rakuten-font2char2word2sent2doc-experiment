@@ -36,6 +36,17 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda CUDA_VISIBLE_DEVICES=$gpu_id ra
 ```
 
 
+## Visualization of font attentions
+
+After training, run the following command.
+
+```
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda CUDA_VISIBLE_DEVICES=$gpu_id rake visualize
+```
+
+You should see image files in `var/font_attentions`.
+
+
 ## License
 
 [The Unlicense](https://unlicense.org)
