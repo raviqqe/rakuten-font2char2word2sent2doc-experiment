@@ -20,6 +20,8 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda CUDA_VISIBLE_DEVICES=$gpu_id ra
 `$gpu_id` is an integer indentifier of a GPU on your machine.
 When it has 4 GPUs, `$gpu_id` should be in a range of 0 to 3.
 
+When you stop training, you can restart it running the same command as above.
+
 
 ## Evaluation
 
