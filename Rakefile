@@ -126,4 +126,5 @@ task :clean
 
 task :clobber do
   sh 'git clean -dfx'
+  rm_rf VAR_DIR
 end
