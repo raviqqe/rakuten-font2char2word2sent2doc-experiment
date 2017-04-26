@@ -80,7 +80,7 @@ def prepare_venv
 
   vsh %w[pip3 install --upgrade --no-cache-dir
          matplotlib
-         tensorflow-gpu==0.12.1
+         tensorflow-gpu
          tensorflow-qnd
          tensorflow-qndex
          tensorflow-font2char2word2sent2doc]
