@@ -122,7 +122,9 @@ end
 
 task default: %i[train evaluate]
 
-task :clean
+task :clean do
+  rm_rf OUTPUT_DIR
+end
 
 task :clobber do
   sh 'git clean -dfx'
