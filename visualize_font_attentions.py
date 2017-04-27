@@ -32,7 +32,7 @@ def main():
             font[:, :, 0],
             255 - (255 * np.sqrt(attention)).astype(np.uint8))
         image.imsave(os.path.join(gargparse.ARGS.dest_dir,
-                                  hex(ord(char)) + '.img'),
+                                  hex(ord(char)) + '.png'),
                      font)
 
 
